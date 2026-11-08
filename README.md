@@ -1,5 +1,18 @@
 # pstack
 
+> [!NOTE]
+> **This is an unofficial fork.** pstack is written by [Lauren Tan (poteto)](https://github.com/poteto) and published in [cursor/plugins](https://github.com/cursor/plugins/tree/main/pstack). This repo forks pstack 0.15.36 and rewrites its skills to be harness-neutral, so they work in Cursor, Claude Code, Codex, opencode, Gemini CLI, Copilot, and other agents without assuming any one of them. It is not affiliated with or endorsed by the original author or Cursor. The README below is the original author's, in their voice, edited only for harness-neutral wording.
+>
+> The plugin commands in the install table install upstream pstack, not this fork. To use this fork, clone it and link its skills:
+>
+> ```bash
+> git clone https://github.com/kittycache9/pstack ~/src/pstack
+> mkdir -p ~/.agents/skills
+> for d in ~/src/pstack/skills/*/; do ln -s "$d" ~/.agents/skills/; done
+> ```
+>
+> Report problems with the neutral rewrite here. Report anything else upstream.
+
 i'm [poteto](https://x.com/poteto). i'm not a president or ceo, but i've worked with millions of lines of code at Meta, Netflix, and Cursor. i'm also on the react core team where i help build and maintain react compiler.
 
 there's a growing sense that ai writes too much slop code. i agree. i don't want to ship like a team of twenty slop artists. throughput without quality is not a goal i aspire to. if you want to go fast, go deep first. 
