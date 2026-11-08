@@ -1,8 +1,8 @@
 # Triage automation prompt
 
-> Source material for the copied setup workflow. Paraphrase this intent into a built-in `automate` draft after `automate` confirms that the copied pack is committed in the repository where the automation will run.
+> Source material for the copied setup workflow. Paraphrase this intent into the automation backend's draft, a built-in `automate` draft with Cursor Automations, after its creation flow confirms that the copied pack is committed in the repository where the automation will run. Replace `{{BENNY_PACK_DIR}}` with the pack's committed repository-relative directory.
 
-Read and follow `.cursor/automations/benny/skills/triage-issue-reports/SKILL.md` for this run.
+Read and follow `{{BENNY_PACK_DIR}}/skills/triage-issue-reports/SKILL.md` for this run.
 
 Configuration source. Include this repository-relative path only when it is committed in the same target repository. Otherwise paraphrase the configured values. Never use a plugin source or cache path:
 

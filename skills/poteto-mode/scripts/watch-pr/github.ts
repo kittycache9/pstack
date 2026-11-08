@@ -326,12 +326,21 @@ function parseComment(value: unknown): T.ReviewComment {
     createdAt: string(object.createdAt, "review comment.createdAt"),
   };
 }
-function isBugbot(comment: T.ReviewComment | null): boolean {
+// Logins of automated PR reviewers. PSTACK_REVIEW_BOTS (comma-separated) adds
+// the repository's own review bot.
+const REVIEW_BOT_LOGINS = [
+  "bugbot",
+  ...(process.env.PSTACK_REVIEW_BOTS ?? "")
+    .split(",")
+    .map((login) => login.trim().toLowerCase())
+    .filter((login) => login.length > 0),
+];
+function isReviewBot(comment: T.ReviewComment | null): boolean {
   if (comment === null) return false;
   const author = (comment.authorLogin ?? "").toLowerCase();
   const body = comment.body.toLowerCase();
   return (
-    author.includes("bugbot") ||
+    REVIEW_BOT_LOGINS.some((login) => author.includes(login)) ||
     (author === "cursor" &&
       [
         "bugbot",
@@ -389,7 +398,7 @@ export function buildReviewThreads(
   const keys = new Set<string>();
   let keyless = false;
   for (const thread of threads) {
-    if (!isBugbot(thread.firstComment)) continue;
+    if (!isReviewBot(thread.firstComment)) continue;
     const key = passKey(thread.firstComment);
     if (key === null) keyless = true;
     else keys.add(key);
@@ -400,8 +409,8 @@ export function buildReviewThreads(
     .map(({ id, firstComment }) => ({
       id,
       firstComment,
-      isBugbot: isBugbot(firstComment),
-      bugbotReviewPasses: passes,
+      isReviewBot: isReviewBot(firstComment),
+      reviewBotPasses: passes,
     }));
 }
 export function parsePullRequest(
