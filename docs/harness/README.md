@@ -77,3 +77,10 @@ Several harnesses read a cross-agent skills directory, `.agents/skills/` in a pr
 | GitHub Copilot | yes | `.github/skills/` |
 
 Cursor, opencode, and Copilot also read `.claude/skills/`, so a copy there reaches Claude Code too.
+
+## Script settings
+
+Two bundled scripts read optional environment variables:
+
+- `skills/poteto-mode/scripts/worktree-audit.sh` fills `LAST_CHAT` from session transcripts. It probes the Cursor, Claude Code, and Codex transcript locations. Set `PSTACK_TRANSCRIPTS_DIR` to a colon-separated list of directories to search instead. With no transcripts found, `LAST_CHAT` is `-`.
+- `skills/poteto-mode/scripts/watch-pr` flags threads from automated review bots. It knows Cursor's Bugbot. Set `PSTACK_REVIEW_BOTS` to a comma-separated list of bot logins to add your repository's own.
